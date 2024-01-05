@@ -13,10 +13,15 @@ class BooksModel extends Model
 
  
     
-    public function getBooks()
+    public function getBooks($search)
     {
 
-    
+        $filter = "";
+
+        if ($search != null)
+        {
+            $filter = " where a.title LIKE '%".$search."%' ";
+        }
 
      $query_get = DB::select("SELECT  a.book_id, 
      a.title,
@@ -26,8 +31,9 @@ FROM    books a
          ON a.book_id = b.book_id 
      INNER JOIN AUTHORS c
          ON b.author_id = c.author_id
+         $filter
 GROUP   BY a.book_id, a.title
-   
+
      ");
 
      if (!empty($query_get)) {

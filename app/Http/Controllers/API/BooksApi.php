@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\BooksModel;
+use App\Models\UsersModel;
 use Illuminate\Support\Facades\Hash;
 use Auth;
 use Validator;
@@ -43,11 +44,26 @@ class BooksApi extends Controller
             
         if (isset($post['token']) && isset($post['user_id'])) {
 
+            $user_id = $post['user_id'];
+            $token = $post['token'];
+
             $authUser = $db_users->authUsers($user_id,$token);
 
-            if ($authCustomer != false) {
+            if ($authUser != false) {
                 
-                $getData = $db->getBooks();
+                if (isset($post['search']) ) {
+
+                    $search = $post['search'];
+                    
+             
+                    }else {
+             
+                     $search = null;
+                     
+                     }
+
+                $getData = $db->getBooks($search);
+
                 if ($getData != 1) {
 
             

@@ -56,14 +56,10 @@ class AuthApi extends Controller
             
         $email = $post['email'];
         $password = $post['password'];
-        $firebase_id = $post['firebase_id'];
-        $firebase_time = $post['firebase_time'];
-        $device_brand = $post['device_brand'];
-        $device_model = $post['device_model'];
       
         
 
-            $user = $db->checkUserLogin($email, $password,$firebase_id,$device_brand,$device_model,$firebase_time);
+            $user = $db->checkUserLogin($email, $password);
 
            // echo json_encode($user);die;
             if ($user == true) {
@@ -87,7 +83,7 @@ class AuthApi extends Controller
                 } else {
                     $return = array(
                         "status" => 404,
-                        "message" => "Pelanggan tidak ditemukan"
+                        "message" => "User tidak ditemukan"
                     );
                 }
 
@@ -95,7 +91,7 @@ class AuthApi extends Controller
         
                     $return = array(
                         "status" => 404,
-                        "message" => "No Telpon atau password salah"
+                        "message" => "Email atau Password salah"
                     );
               
             }

@@ -70,7 +70,7 @@ class UsersModel extends Model
 
 
    
-    public function checkUserLogin($email, $password,$firebase_id,$device_brand,$device_model,$firebase_time)
+    public function checkUserLogin($email, $password)
     {
     
        
@@ -93,7 +93,7 @@ class UsersModel extends Model
            if (Hash::check($password, $password_hash)) {
        
             $new_token = $this->generateToken();
-            $upd = DB::select("UPDATE users SET is_login=1, firebase_time = '" . $firebase_time . "', firebase_id='" . $firebase_id . "',device_brand='" . $device_brand . "',device_model='" . $device_model . "',token='" . $new_token . "' WHERE email='" . $email . "' AND status_id=1 ");
+            $upd = DB::select("UPDATE users SET is_login=1,token='" . $new_token . "' WHERE email='" . $email . "' AND status_id=1 ");
       
            return true;
            
